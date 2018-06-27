@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by alumno on 16/05/2018.
@@ -48,6 +49,15 @@ public class Aeropuertos  {
     @JoinColumn (name = "Ciudad_fk", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Ciudad  ciudad;
+
+    public Aeropuertos(int id, @NotNull String iataCode, @NotNull String name, @NotNull String latitude, @NotNull String longitude, @NotNull Ciudad city) {
+        this.Id_Aeropuerto = id;
+        this.IATA = iataCode.toLowerCase();
+        this.name = name;
+        this.latitude = latitude;
+        this.longitud = longitude;
+        this.ciudad = city;
+    }
 
     public Aeropuertos(AeropuertosDTO dto, Ciudad city) {
         this.IATA = dto.getIataCode();

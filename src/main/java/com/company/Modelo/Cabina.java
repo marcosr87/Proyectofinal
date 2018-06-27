@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by alumno on 16/05/2018.
@@ -30,5 +31,11 @@ public class Cabina {
     {
         this.name = dto.getName();
 
+    }
+
+    public  Cabina (int id_cabin, @NotNull String nombre)
+    {
+        this.Id_cabin = id_cabin;
+        this.name = nombre;
     }
 }

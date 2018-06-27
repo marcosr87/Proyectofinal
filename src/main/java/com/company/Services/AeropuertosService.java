@@ -1,8 +1,6 @@
 package com.company.Services;
 
-import com.company.DTO.AeropuertosDTO;
 import com.company.Modelo.Aeropuertos;
-import com.company.Modelo.Ciudad;
 import com.company.Persistence.AeropuertoDao;
 import com.company.Util.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,8 @@ public class AeropuertosService {
         return aeropuertoDao.getById(id);
     }
 
-    public void save(AeropuertosDTO aero, Ciudad ciudad)  throws ParseException {
-        Aeropuertos a = new Aeropuertos(aero,ciudad);
+    public void save(Aeropuertos a)  throws ParseException {
+
 
         this.aeropuertoDao.save(a);
 

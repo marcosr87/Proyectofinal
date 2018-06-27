@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -42,10 +43,13 @@ public class Ciudad {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Estado estado;
 
-    public Ciudad ( String iata, String name) {
 
-        this.Iata_code = Iata_code.toLowerCase();
+
+    public Ciudad(int id, @NotNull String iataCode, @NotNull String name, @NotNull Estado estado) {
+        this.Id_city = id;
+        this.Iata_code = iataCode;
         this.name = name;
+        this.estado = estado;
     }
 
     public Ciudad(CiudadDTO dto, Estado estado) {

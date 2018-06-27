@@ -37,9 +37,10 @@ private CiudadService ciudadService;
     public @ResponseBody
     ResponseEntity<AeropuertosDTO> post(@RequestBody AeropuertosDTO dto) {
         Ciudad ciudad = ciudadService.get(dto.getCity_iataCode());
+        Aeropuertos a = new Aeropuertos(dto,ciudad);
         //  System.out.println("PaIS" + pais.getName());
         try {
-            service.save(dto,ciudad); // Persisito el Country
+            service.save(a); // Persisito el Country
 
         } catch (ConstraintViolationException e) { // Error de validacion
             throw new RestValidationErrorException(e.getConstraintViolations());

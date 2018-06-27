@@ -1,8 +1,11 @@
 package com.company.Controladora;
 
 import com.company.DTO.EstadoDTO;
+import com.company.Exceptions.RestBadRequestException;
 import com.company.Exceptions.RestInternalServerErrorException;
+import com.company.Exceptions.RestNotFoundException;
 import com.company.Exceptions.RestValidationErrorException;
+import com.company.Modelo.Estado;
 import com.company.Modelo.Pais;
 import com.company.Services.EstadoService;
 import com.company.Services.PaisService;
@@ -45,5 +48,27 @@ public class ctrlEstado {
         return new ResponseEntity<>( HttpStatus.CREATED);
 
     }
+
+    @RequestMapping(value = "/{iataCode}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    ResponseEntity getByIataCode(@PathVariable("iataCode") String iataCode) {
+        if (!iataCode.equalsIgnoreCase("")) {
+            iataCode = iataCode.toLowerCase();
+            Estado estado;
+            try {
+                estado = estadoService.get(iataCode);
+            } catch (Exception e) {
+                throw new RestInternalServerErrorException(e.getMessage());
+            }
+            if (estado != null) {
+                return new ResponseEntity(new EstadoDTO (estado.getIata_code(),estado.getName(),estado.getPais().getIso()), HttpStatus.OK);
+            } else {
+                throw new RestNotFoundException(String.format("City %s not found", iataCode));
+            }
+        } else {
+            throw new RestBadRequestException("iataCode no puede ser vacio");
+        }
+    }
+
 
 }

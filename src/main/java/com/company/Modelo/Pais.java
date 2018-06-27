@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -32,10 +33,12 @@ public class Pais {
     @OneToMany( mappedBy = "pais")
     private List<Estado> ListaEstado;
 
-    public Pais( String isoCode, String name) {
+    public Pais(int id, @NotNull String name, @NotNull String Iso) {
 
-        this.Iso = isoCode.toLowerCase();
+        this.Id_Country = id;
         this.name = name;
+        this.Iso = Iso.toLowerCase();
+
     }
 
     public Pais(PaisDTO dto) {

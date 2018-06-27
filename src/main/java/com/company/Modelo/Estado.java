@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -38,15 +39,16 @@ public class Estado {
     @OneToMany(mappedBy = "estado")
     private List<Ciudad> Listaciudades;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "Pais_fk", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Pais pais;
 
-    public Estado( String iata, String name) {
-
-        this.Iata_code = Iata_code.toLowerCase();
+    public Estado(int id, @NotNull String iataCode, @NotNull String name, @NotNull Pais country) {
+        this.Id_state = id;
+        this.Iata_code = iataCode;
         this.name = name;
+        this.pais = country;
     }
 
     public Estado(EstadoDTO dto, Pais pais) {
